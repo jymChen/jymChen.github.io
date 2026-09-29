@@ -100,11 +100,27 @@
         }
 
         .notice {
-            margin-top: 16px;
-            padding: 10px 14px;
-            border-left: 3px solid var(--accent);
+            display: inline-flex;
+            align-items: baseline;
+            gap: 10px;
+            margin-top: 18px;
+            padding: 8px 16px;
             background: var(--accent-bg);
-            border-radius: 0 6px 6px 0;
+            border: 1px solid #d6e2f5;
+            border-radius: 8px;
+        }
+
+        .notice .dot {
+            flex-shrink: 0;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #2da44e;
+            transform: translateY(-1px);
+        }
+
+        .notice strong {
+            color: var(--accent);
         }
 
         /* ---------- Sections ---------- */
@@ -267,6 +283,16 @@
             color: var(--muted);
         }
 
+        .pub-stat {
+            margin-left: 12px;
+            color: var(--muted);
+            white-space: nowrap;
+        }
+
+        .pub-stat b {
+            color: var(--red);
+        }
+
         .pub-links a {
             margin-left: 10px;
         }
@@ -326,7 +352,7 @@
                     My research interests include <strong class="nw">Medical LLMs</strong>, <strong class="nw">Multimodal LLMs</strong>, and <strong class="nw">LLM Agents</strong>.
                 </p>
                 <p>
-                    Find me on <a href="https://scholar.google.com.hk/citations?user=I0raPTYAAAAJ&amp;hl=zh-CN&amp;authuser=1">Google Scholar</a> (2.5K+ citations),
+                    Find me on <a href="https://scholar.google.com.hk/citations?user=I0raPTYAAAAJ&amp;hl=zh-CN&amp;authuser=1">Google Scholar</a> (2.9K+ citations),
                     and <a href="https://github.com/jymChen">GitHub</a> (6K stars)!
                 </p>
                 <p>
@@ -336,7 +362,8 @@
             <img src="static/30071698590983_.pic.jpg" alt="Junying Chen">
         </section>
         <div class="notice">
-            I'm exploring opportunities for 2027, when I expect to graduate, in both industry and academia.
+            <span class="dot"></span>
+            <span>I'm exploring opportunities for <strong>2027</strong>, when I expect to graduate, in both industry and academia.</span>
         </div>
 
         <!-- ===== Education ===== -->
@@ -363,10 +390,10 @@
             <div class="sub upright">GPA Rank: <span class="hl">1st</span> / 51</div>
         </div>
 
-        <!-- ===== Research Impact ===== -->
-        <h2>Research Impact</h2>
+        <!-- ===== Impact ===== -->
+        <h2>Impact</h2>
         <div class="entry impact">
-            <div><span class="num"><a href="https://scholar.google.com.hk/citations?user=I0raPTYAAAAJ">2.5K</a></span>Citations (<span class="hl">1.5K</span> as first author)</div>
+            <div><span class="num"><a href="https://scholar.google.com.hk/citations?user=I0raPTYAAAAJ">2.9K</a></span>Citations (<span class="hl">1.8K</span> as first author)</div>
             <div><span class="num"><a href="https://github.com/jymChen">6K</a></span>GitHub stars</div>
             <div><span class="num">487K</span>Open-source model downloads</div>
             <div><span class="num">274K</span>Open-source dataset downloads</div>
@@ -404,6 +431,7 @@
             <div class="pub-meta">
                 <span class="venue">ACL 2025 Findings</span>
                 <span class="pub-links"><a href="https://arxiv.org/abs/2412.18925">[PDF]</a><a href="https://github.com/FreedomIntelligence/HuatuoGPT-o1">[Code]</a></span>
+                <span class="pub-stat"><b>437</b> citations</span>
             </div>
         </div>
 
@@ -413,6 +441,7 @@
             <div class="pub-meta">
                 <span class="venue">EMNLP 2024</span>
                 <span class="pub-links"><a href="https://arxiv.org/abs/2406.19280">[PDF]</a><a href="https://github.com/FreedomIntelligence/HuatuoGPT-Vision">[Code]</a></span>
+                <span class="pub-stat"><b>314</b> citations</span>
             </div>
         </div>
 
@@ -422,6 +451,7 @@
             <div class="pub-meta">
                 <span class="venue">COLM 2024</span>
                 <span class="pub-links"><a href="https://arxiv.org/abs/2311.09774">[PDF]</a><a href="https://github.com/FreedomIntelligence/HuatuoGPT-II">[Code]</a></span>
+                <span class="pub-stat"><b>183</b> citations</span>
             </div>
         </div>
 
@@ -431,6 +461,7 @@
             <div class="pub-meta">
                 <span class="venue">EMNLP 2023 Findings</span>
                 <span class="pub-links"><a href="https://arxiv.org/abs/2305.15075">[PDF]</a><a href="https://github.com/FreedomIntelligence/HuatuoGPT">[Code]</a></span>
+                <span class="pub-stat"><b>557</b> citations</span>
             </div>
         </div>
 
@@ -462,6 +493,15 @@
         </div>
 
         <div class="pub">
+            <div class="pub-title">RAG-Instruct: Boosting LLMs with Diverse Retrieval-Augmented Instructions</div>
+            <div class="pub-authors">Wanlong Liu*, <b>Junying Chen*</b>, et al.</div>
+            <div class="pub-meta">
+                <span class="venue">EMNLP 2025</span>
+                <span class="pub-links"><a href="https://arxiv.org/abs/2501.00353">[PDF]</a><a href="https://github.com/FreedomIntelligence/RAG-Instruct">[Code]</a></span>
+            </div>
+        </div>
+
+        <div class="pub">
             <div class="pub-title">Benchmarking LLMs on Authentic Cases from Medical Journals</div>
             <div class="pub-authors">Wanlong Liu*, <b>Junying Chen*</b>, Yunjin Yang*, et al.</div>
             <div class="pub-meta">
@@ -476,15 +516,6 @@
             <div class="pub-meta">
                 <span class="venue">ACL 2025 Findings</span>
                 <span class="pub-links"><a href="https://arxiv.org/abs/2406.00606">[PDF]</a><a href="https://github.com/FreedomIntelligence/Autonomous_Learning">[Code]</a></span>
-            </div>
-        </div>
-
-        <div class="pub">
-            <div class="pub-title">RAG-Instruct: Boosting LLMs with Diverse Retrieval-Augmented Instructions</div>
-            <div class="pub-authors">Wanlong Liu*, <b>Junying Chen*</b>, et al.</div>
-            <div class="pub-meta">
-                <span class="venue">EMNLP 2025</span>
-                <span class="pub-links"><a href="https://arxiv.org/abs/2501.00353">[PDF]</a><a href="https://github.com/FreedomIntelligence/RAG-Instruct">[Code]</a></span>
             </div>
         </div>
 
@@ -544,7 +575,7 @@
             </div>
             <div class="sub">Foundation Model Department</div>
             <ul>
-                <li>Scaled up working spaces (agent environments) for training working agents.</li>
+                <li>Scaled up workspaces (agent environments) for training working agents.</li>
                 <li>Built RL tasks and environments.</li>
                 <li>Contributed to the working-agent capabilities of <strong>Hy4</strong>.</li>
             </ul>
