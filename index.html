@@ -1,965 +1,566 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Junying Chen</title>
-
-    <meta content="width=device-width, initial-scale=1" name="viewport">
-
-    <meta name="description" content="Junying Chen\&#39;s website.">
-    <!-- A decent browser will parse this fine:
-         https://webmasters.stackexchange.com/questions/92744. -->
-    <meta name="keywords" content="
-        natural language processing,
-        machine learning,
-        language model,
-        retrieval,
-        question answering,
-        deep learning,
-        computer science
-    ">
+    <meta name="description" content="Junying Chen (陈俊颖), Ph.D. candidate at CUHK-Shenzhen, working on medical LLMs, multimodal LLMs, and LLM agents.">
+    <meta name="keywords" content="Junying Chen, large language models, medical LLMs, multimodal LLMs, LLM agents, reinforcement learning, HuatuoGPT, natural language processing, machine learning">
     <meta name="author" content="Junying Chen">
-
     <link rel="shortcut icon" href="static/11.jpg">
-    <link href="static/blog.css" rel="stylesheet">
 
-    <script type="text/x-mathjax-config;executed=true">
-MathJax.Hub.Config({
-  jax: ['input/TeX', 'output/HTML-CSS'],
-  tex2jax: {
-    inlineMath: [ ['$', '$'] ],
-    displayMath: [ ['[[', ']]']],
-    processEscapes: true,
-    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-    extensions: ['color.js']
-  },
-  messageStyle: 'none',
-  'HTML-CSS': { preferredFont: 'TeX', availableFonts: ['STIX','TeX'] }
-});
-</script>
-
-
-
-    <script type="text/javascript" async="" src="static/MathJax.js"></script>
-    <style type="text/css">
-        .MathJax_Hover_Frame {
-            border-radius: .25em;
-            -webkit-border-radius: .25em;
-            -moz-border-radius: .25em;
-            -khtml-border-radius: .25em;
-            box-shadow: 0px 0px 15px #83A;
-            -webkit-box-shadow: 0px 0px 15px #83A;
-            -moz-box-shadow: 0px 0px 15px #83A;
-            -khtml-box-shadow: 0px 0px 15px #83A;
-            border: 1px solid #A6D ! important;
-            display: inline-block;
-            position: absolute
+    <style>
+        :root {
+            --text: #24292f;
+            --muted: #57606a;
+            --light: #8c959f;
+            --line: #d0d7de;
+            --line-soft: #eaeef2;
+            --accent: #1a5fb4;
+            --accent-bg: #eef3fb;
+            --red: #cf222e;
         }
 
-        .MathJax_Menu_Button .MathJax_Hover_Arrow {
-            position: absolute;
-            cursor: pointer;
-            display: inline-block;
-            border: 2px solid #AAA;
-            border-radius: 4px;
-            -webkit-border-radius: 4px;
-            -moz-border-radius: 4px;
-            -khtml-border-radius: 4px;
-            font-family: 'Courier New', Courier;
-            font-size: 9px;
-            color: #F0F0F0
+        * {
+            box-sizing: border-box;
         }
 
-        .MathJax_Menu_Button .MathJax_Hover_Arrow span {
-            display: block;
-            background-color: #AAA;
-            border: 1px solid;
-            border-radius: 3px;
-            line-height: 0;
-            padding: 4px
+        html {
+            font-size: 16px;
         }
 
-        .MathJax_Hover_Arrow:hover {
-            color: white !important;
-            border: 2px solid #CCC !important
-        }
-
-        .MathJax_Hover_Arrow:hover span {
-            background-color: #CCC !important
-        }
-    </style>
-    <style type="text/css">
-        #MathJax_About {
-            position: fixed;
-            left: 50%;
-            width: auto;
-            text-align: center;
-            border: 3px outset;
-            padding: 1em 2em;
-            background-color: #DDDDDD;
-            color: black;
-            cursor: default;
-            font-family: message-box;
-            font-size: 120%;
-            font-style: normal;
-            text-indent: 0;
-            text-transform: none;
-            line-height: normal;
-            letter-spacing: normal;
-            word-spacing: normal;
-            word-wrap: normal;
-            white-space: nowrap;
-            float: none;
-            z-index: 201;
-            border-radius: 15px;
-            -webkit-border-radius: 15px;
-            -moz-border-radius: 15px;
-            -khtml-border-radius: 15px;
-            box-shadow: 0px 10px 20px #808080;
-            -webkit-box-shadow: 0px 10px 20px #808080;
-            -moz-box-shadow: 0px 10px 20px #808080;
-            -khtml-box-shadow: 0px 10px 20px #808080;
-            filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')
-        }
-
-        #MathJax_About.MathJax_MousePost {
-            outline: none
-        }
-
-        .MathJax_Menu {
-            position: absolute;
-            background-color: white;
-            color: black;
-            width: auto;
-            padding: 5px 0px;
-            border: 1px solid #CCCCCC;
+        body {
             margin: 0;
-            cursor: default;
-            font: menu;
-            text-align: left;
-            text-indent: 0;
-            text-transform: none;
-            line-height: normal;
-            letter-spacing: normal;
-            word-spacing: normal;
-            word-wrap: normal;
+            color: var(--text);
+            background: #fff;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .wrap {
+            max-width: 880px;
+            margin: 0 auto;
+            padding: 56px 24px 64px;
+        }
+
+        /* ---------- Header ---------- */
+        .name {
+            margin: 0 0 18px;
+            font-size: 2.1em;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            line-height: 1.25;
+        }
+
+        .name .cn {
+            margin-left: 12px;
+            font-weight: 400;
+            color: var(--muted);
+            font-size: 0.8em;
+        }
+
+        .header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 36px;
+        }
+
+        .hello {
+            margin: 0 0 6px;
+            font-size: 1.25em;
+        }
+
+        .about p {
+            margin: 0 0 10px;
+        }
+
+        .nw {
             white-space: nowrap;
-            float: none;
-            z-index: 201;
-            border-radius: 5px;
-            -webkit-border-radius: 5px;
-            -moz-border-radius: 5px;
-            -khtml-border-radius: 5px;
-            box-shadow: 0px 10px 20px #808080;
-            -webkit-box-shadow: 0px 10px 20px #808080;
-            -moz-box-shadow: 0px 10px 20px #808080;
-            -khtml-box-shadow: 0px 10px 20px #808080;
-            filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')
         }
 
-        .MathJax_MenuItem {
-            padding: 1px 2em;
-            background: transparent
+        .header img {
+            width: 160px;
+            height: 160px;
+            margin-top: 48px;
+            border-radius: 50%;
+            object-fit: cover;
+            flex-shrink: 0;
         }
 
-        .MathJax_MenuArrow {
-            position: absolute;
-            right: .5em;
-            padding-top: .25em;
-            color: #666666;
-            font-size: .75em
+        .notice {
+            margin-top: 16px;
+            padding: 10px 14px;
+            border-left: 3px solid var(--accent);
+            background: var(--accent-bg);
+            border-radius: 0 6px 6px 0;
         }
 
-        .MathJax_MenuActive .MathJax_MenuArrow {
-            color: white
+        /* ---------- Sections ---------- */
+        h2 {
+            margin: 44px 0 14px;
+            padding-bottom: 6px;
+            font-size: 1.4em;
+            font-weight: 700;
+            border-bottom: 1px solid var(--line-soft);
         }
 
-        .MathJax_MenuArrow.RTL {
-            left: .5em;
-            right: auto
+        .note {
+            margin: -4px 0 16px;
+            color: var(--muted);
+            font-size: 0.92em;
         }
 
-        .MathJax_MenuCheck {
-            position: absolute;
-            left: .7em
+        .note-hl {
+            color: var(--text);
         }
 
-        .MathJax_MenuCheck.RTL {
-            right: .7em;
-            left: auto
+        .mono {
+            font-family: "SF Mono", Menlo, Consolas, monospace;
+            font-size: 0.93em;
         }
 
-        .MathJax_MenuRadioCheck {
-            position: absolute;
-            left: .7em
+        /* ---------- Entries (experience / education) ---------- */
+        .entry {
+            margin: 16px 0;
+            padding: 2px 0 2px 16px;
+            border-left: 3px solid var(--line);
         }
 
-        .MathJax_MenuRadioCheck.RTL {
-            right: .7em;
-            left: auto
+        .entry-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            column-gap: 16px;
         }
 
-        .MathJax_MenuLabel {
-            padding: 1px 2em 3px 1.33em;
-            font-style: italic
+        .date {
+            color: var(--muted);
+            white-space: nowrap;
         }
 
-        .MathJax_MenuRule {
-            border-top: 1px solid #DDDDDD;
-            margin: 4px 3px
+        .sub {
+            color: var(--muted);
+            font-style: italic;
         }
 
-        .MathJax_MenuDisabled {
-            color: GrayText
-        }
-
-        .MathJax_MenuActive {
-            background-color: #606872;
-            color: white
-        }
-
-        .MathJax_MenuDisabled:focus,
-        .MathJax_MenuLabel:focus {
-            background-color: #E8E8E8
-        }
-
-        .MathJax_ContextMenu:focus {
-            outline: none
-        }
-
-        .MathJax_ContextMenu .MathJax_MenuItem:focus {
-            outline: none
-        }
-
-        #MathJax_AboutClose {
-            top: .2em;
-            right: .2em
-        }
-
-        .MathJax_Menu .MathJax_MenuClose {
-            top: -10px;
-            left: -10px
-        }
-
-        .MathJax_MenuClose {
-            position: absolute;
-            cursor: pointer;
+        .tag {
             display: inline-block;
-            border: 2px solid #AAA;
-            border-radius: 18px;
-            -webkit-border-radius: 18px;
-            -moz-border-radius: 18px;
-            -khtml-border-radius: 18px;
-            font-family: 'Courier New', Courier;
-            font-size: 24px;
-            color: #F0F0F0
+            margin-left: 6px;
+            padding: 0 9px;
+            font-size: 0.8em;
+            line-height: 1.7;
+            border-radius: 10px;
+            background: var(--accent-bg);
+            color: var(--accent);
+            white-space: nowrap;
+            vertical-align: 1px;
         }
 
-        .MathJax_MenuClose span {
-            display: block;
-            background-color: #AAA;
-            border: 1.5px solid;
-            border-radius: 18px;
-            -webkit-border-radius: 18px;
-            -moz-border-radius: 18px;
-            -khtml-border-radius: 18px;
-            line-height: 0;
-            padding: 8px 0 6px
-        }
-
-        .MathJax_MenuClose:hover {
-            color: white !important;
-            border: 2px solid #CCC !important
-        }
-
-        .MathJax_MenuClose:hover span {
-            background-color: #CCC !important
-        }
-
-        .MathJax_MenuClose:hover:focus {
-            outline: none
-        }
-    </style>
-    <style type="text/css">
-        .MathJax_Preview .MJXf-math {
-            color: inherit !important
-        }
-    </style>
-    <style type="text/css">
-        .MJX_Assistive_MathML {
-            position: absolute !important;
-            top: 0;
-            left: 0;
-            clip: rect(1px, 1px, 1px, 1px);
-            padding: 1px 0 0 0 !important;
-            border: 0 !important;
-            height: 1px !important;
-            width: 1px !important;
-            overflow: hidden !important;
-            display: block !important;
-            -webkit-touch-callout: none;
-            -webkit-user-select: none;
-            -khtml-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none
-        }
-
-        .MJX_Assistive_MathML.MJX_Assistive_MathML_Block {
-            width: 100% !important
-        }
-    </style>
-    <style type="text/css">
-        #MathJax_Zoom {
-            position: absolute;
-            background-color: #F0F0F0;
-            overflow: auto;
-            display: block;
-            z-index: 301;
-            padding: .5em;
-            border: 1px solid black;
-            margin: 0;
-            font-weight: normal;
+        .sub.upright {
             font-style: normal;
-            text-align: left;
-            text-indent: 0;
-            text-transform: none;
-            line-height: normal;
-            letter-spacing: normal;
-            word-spacing: normal;
-            word-wrap: normal;
-            white-space: nowrap;
-            float: none;
-            -webkit-box-sizing: content-box;
-            -moz-box-sizing: content-box;
-            box-sizing: content-box;
-            box-shadow: 5px 5px 15px #AAAAAA;
-            -webkit-box-shadow: 5px 5px 15px #AAAAAA;
-            -moz-box-shadow: 5px 5px 15px #AAAAAA;
-            -khtml-box-shadow: 5px 5px 15px #AAAAAA;
-            filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')
         }
 
-        #MathJax_ZoomOverlay {
-            position: absolute;
-            left: 0;
-            top: 0;
-            z-index: 300;
+        .entry.edu {
+            margin: 10px 0;
+            padding: 0 0 0 16px;
+            line-height: 1.45;
+        }
+
+        .entry ul {
+            margin: 6px 0 0;
+            padding-left: 20px;
+        }
+
+        .entry li {
+            margin: 2px 0;
+        }
+
+        /* ---------- Impact ---------- */
+        .impact {
+            display: grid;
+            grid-template-columns: 1.25fr 1fr;
+            column-gap: 24px;
+            row-gap: 2px;
+        }
+
+        .impact .num {
             display: inline-block;
-            width: 100%;
-            height: 100%;
-            border: 0;
+            min-width: 3.6em;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .hl {
+            color: var(--red);
+            font-weight: 700;
+            font-style: normal;
+        }
+
+        @media (max-width: 600px) {
+            .impact {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ---------- Publications ---------- */
+        .pub-group {
+            margin: 22px 0 6px;
+            color: var(--light);
+            font-size: 0.8em;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .pub {
+            margin: 0 0 14px;
+            padding: 2px 0 2px 16px;
+            border-left: 3px solid var(--line-soft);
+            transition: border-color 0.15s;
+        }
+
+        .pub:hover {
+            border-left-color: var(--accent);
+        }
+
+        .pub-title {
+            font-weight: 600;
+        }
+
+        .pub-authors {
+            color: var(--muted);
+            font-size: 0.94em;
+        }
+
+        .pub-authors b {
+            color: var(--text);
+        }
+
+        .pub-meta {
+            font-size: 0.94em;
+        }
+
+        .venue {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .oral {
+            color: var(--red);
+            font-weight: 700;
+        }
+
+        .alias {
+            color: var(--muted);
+        }
+
+        .pub-links a {
+            margin-left: 10px;
+        }
+
+        /* ---------- Awards ---------- */
+        .rows {
+            margin: 0;
             padding: 0;
-            margin: 0;
-            background-color: white;
-            opacity: 0;
-            filter: alpha(opacity=0)
+            list-style: none;
         }
 
-        #MathJax_ZoomFrame {
-            position: relative;
-            display: inline-block;
-            height: 0;
-            width: 0
+        .rows li {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            column-gap: 16px;
+            margin: 4px 0;
         }
 
-        #MathJax_ZoomEventTrap {
-            position: absolute;
-            left: 0;
-            top: 0;
-            z-index: 302;
-            display: inline-block;
-            border: 0;
-            padding: 0;
-            margin: 0;
-            background-color: white;
-            opacity: 0;
-            filter: alpha(opacity=0)
-        }
-    </style>
-    <style type="text/css">
-        .MathJax_Preview {
-            color: #888
+        .rows .right {
+            color: var(--muted);
         }
 
-        #MathJax_Message {
-            position: fixed;
-            left: 1em;
-            bottom: 1.5em;
-            background-color: #E6E6E6;
-            border: 1px solid #959595;
-            margin: 0px;
-            padding: 2px 8px;
-            z-index: 102;
-            color: black;
-            font-size: 80%;
-            width: auto;
-            white-space: nowrap
-        }
+        @media (max-width: 600px) {
+            .wrap {
+                padding-top: 32px;
+            }
 
-        #MathJax_MSIE_Frame {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 0px;
-            z-index: 101;
-            border: 0px;
-            margin: 0px;
-            padding: 0px
-        }
+            .header {
+                flex-direction: column-reverse;
+                gap: 16px;
+            }
 
-        .MathJax_Error {
-            color: #CC0000;
-            font-style: italic
-        }
-    </style>
-    <style type="text/css">
-        .MJXp-script {
-            font-size: .8em
-        }
-
-        .MJXp-right {
-            -webkit-transform-origin: right;
-            -moz-transform-origin: right;
-            -ms-transform-origin: right;
-            -o-transform-origin: right;
-            transform-origin: right
-        }
-
-        .MJXp-bold {
-            font-weight: bold
-        }
-
-        .MJXp-italic {
-            font-style: italic
-        }
-
-        .MJXp-scr {
-            font-family: MathJax_Script, 'Times New Roman', Times, STIXGeneral, serif
-        }
-
-        .MJXp-frak {
-            font-family: MathJax_Fraktur, 'Times New Roman', Times, STIXGeneral, serif
-        }
-
-        .MJXp-sf {
-            font-family: MathJax_SansSerif, 'Times New Roman', Times, STIXGeneral, serif
-        }
-
-        .MJXp-cal {
-            font-family: MathJax_Caligraphic, 'Times New Roman', Times, STIXGeneral, serif
-        }
-
-        .MJXp-mono {
-            font-family: MathJax_Typewriter, 'Times New Roman', Times, STIXGeneral, serif
-        }
-
-        .MJXp-largeop {
-            font-size: 150%
-        }
-
-        .MJXp-largeop.MJXp-int {
-            vertical-align: -.2em
-        }
-
-        .MJXp-math {
-            display: inline-block;
-            line-height: 1.2;
-            text-indent: 0;
-            font-family: 'Times New Roman', Times, STIXGeneral, serif;
-            white-space: nowrap;
-            border-collapse: collapse
-        }
-
-        .MJXp-display {
-            display: block;
-            text-align: center;
-            margin: 1em 0
-        }
-
-        .MJXp-math span {
-            display: inline-block
-        }
-
-        .MJXp-box {
-            display: block !important;
-            text-align: center
-        }
-
-        .MJXp-box:after {
-            content: " "
-        }
-
-        .MJXp-rule {
-            display: block !important;
-            margin-top: .1em
-        }
-
-        .MJXp-char {
-            display: block !important
-        }
-
-        .MJXp-mo {
-            margin: 0 .15em
-        }
-
-        .MJXp-mfrac {
-            margin: 0 .125em;
-            vertical-align: .25em
-        }
-
-        .MJXp-denom {
-            display: inline-table !important;
-            width: 100%
-        }
-
-        .MJXp-denom>* {
-            display: table-row !important
-        }
-
-        .MJXp-surd {
-            vertical-align: top
-        }
-
-        .MJXp-surd>* {
-            display: block !important
-        }
-
-        .MJXp-script-box>* {
-            display: table !important;
-            height: 50%
-        }
-
-        .MJXp-script-box>*>* {
-            display: table-cell !important;
-            vertical-align: top
-        }
-
-        .MJXp-script-box>*:last-child>* {
-            vertical-align: bottom
-        }
-
-        .MJXp-script-box>*>*>* {
-            display: block !important
-        }
-
-        .MJXp-mphantom {
-            visibility: hidden
-        }
-
-        .MJXp-munderover,
-        .MJXp-munder {
-            display: inline-table !important
-        }
-
-        .MJXp-over {
-            display: inline-block !important;
-            text-align: center
-        }
-
-        .MJXp-over>* {
-            display: block !important
-        }
-
-        .MJXp-munderover>*,
-        .MJXp-munder>* {
-            display: table-row !important
-        }
-
-        .MJXp-mtable {
-            vertical-align: .25em;
-            margin: 0 .125em
-        }
-
-        .MJXp-mtable>* {
-            display: inline-table !important;
-            vertical-align: middle
-        }
-
-        .MJXp-mtr {
-            display: table-row !important
-        }
-
-        .MJXp-mtd {
-            display: table-cell !important;
-            text-align: center;
-            padding: .5em 0 0 .5em
-        }
-
-        .MJXp-mtr>.MJXp-mtd:first-child {
-            padding-left: 0
-        }
-
-        .MJXp-mtr:first-child>.MJXp-mtd {
-            padding-top: 0
-        }
-
-        .MJXp-mlabeledtr {
-            display: table-row !important
-        }
-
-        .MJXp-mlabeledtr>.MJXp-mtd:first-child {
-            padding-left: 0
-        }
-
-        .MJXp-mlabeledtr:first-child>.MJXp-mtd {
-            padding-top: 0
-        }
-
-        .MJXp-merror {
-            background-color: #FFFF88;
-            color: #CC0000;
-            border: 1px solid #CC0000;
-            padding: 1px 3px;
-            font-style: normal;
-            font-size: 90%
-        }
-
-        .MJXp-scale0 {
-            -webkit-transform: scaleX(.0);
-            -moz-transform: scaleX(.0);
-            -ms-transform: scaleX(.0);
-            -o-transform: scaleX(.0);
-            transform: scaleX(.0)
-        }
-
-        .MJXp-scale1 {
-            -webkit-transform: scaleX(.1);
-            -moz-transform: scaleX(.1);
-            -ms-transform: scaleX(.1);
-            -o-transform: scaleX(.1);
-            transform: scaleX(.1)
-        }
-
-        .MJXp-scale2 {
-            -webkit-transform: scaleX(.2);
-            -moz-transform: scaleX(.2);
-            -ms-transform: scaleX(.2);
-            -o-transform: scaleX(.2);
-            transform: scaleX(.2)
-        }
-
-        .MJXp-scale3 {
-            -webkit-transform: scaleX(.3);
-            -moz-transform: scaleX(.3);
-            -ms-transform: scaleX(.3);
-            -o-transform: scaleX(.3);
-            transform: scaleX(.3)
-        }
-
-        .MJXp-scale4 {
-            -webkit-transform: scaleX(.4);
-            -moz-transform: scaleX(.4);
-            -ms-transform: scaleX(.4);
-            -o-transform: scaleX(.4);
-            transform: scaleX(.4)
-        }
-
-        .MJXp-scale5 {
-            -webkit-transform: scaleX(.5);
-            -moz-transform: scaleX(.5);
-            -ms-transform: scaleX(.5);
-            -o-transform: scaleX(.5);
-            transform: scaleX(.5)
-        }
-
-        .MJXp-scale6 {
-            -webkit-transform: scaleX(.6);
-            -moz-transform: scaleX(.6);
-            -ms-transform: scaleX(.6);
-            -o-transform: scaleX(.6);
-            transform: scaleX(.6)
-        }
-
-        .MJXp-scale7 {
-            -webkit-transform: scaleX(.7);
-            -moz-transform: scaleX(.7);
-            -ms-transform: scaleX(.7);
-            -o-transform: scaleX(.7);
-            transform: scaleX(.7)
-        }
-
-        .MJXp-scale8 {
-            -webkit-transform: scaleX(.8);
-            -moz-transform: scaleX(.8);
-            -ms-transform: scaleX(.8);
-            -o-transform: scaleX(.8);
-            transform: scaleX(.8)
-        }
-
-        .MJXp-scale9 {
-            -webkit-transform: scaleX(.9);
-            -moz-transform: scaleX(.9);
-            -ms-transform: scaleX(.9);
-            -o-transform: scaleX(.9);
-            transform: scaleX(.9)
-        }
-
-        .MathJax_PHTML .noError {
-            vertical-align: ;
-            font-size: 90%;
-            text-align: left;
-            color: black;
-            padding: 1px 3px;
-            border: 1px solid
-        }
-    </style>
-    <style type="text/css">
-        .MathJax_Preview {
-            color: #888
-        }
-
-        #MathJax_Message {
-            position: fixed;
-            left: 1em;
-            bottom: 1.5em;
-            background-color: #E6E6E6;
-            border: 1px solid #959595;
-            margin: 0px;
-            padding: 2px 8px;
-            z-index: 102;
-            color: black;
-            font-size: 80%;
-            width: auto;
-            white-space: nowrap
-        }
-
-        #MathJax_MSIE_Frame {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 0px;
-            z-index: 101;
-            border: 0px;
-            margin: 0px;
-            padding: 0px
-        }
-
-        .MathJax_Error {
-            color: #CC0000;
-            font-style: italic
-        }
-
-        h3 {
-            margin-top: 25px;
-            margin-bottom: 0;
+            .header img {
+                width: 110px;
+                height: 110px;
+            }
         }
     </style>
 </head>
 
 <body>
-    <div id="MathJax_Message" style="display: none;"></div>
-    <div id="MathJax_Message" style="display: none;"></div>
-    <div class="nav">
-        <ul class="wrap"></ul>
-    </div>
-    <div id="blog" class="wrap">
-        <h2>Junying Chen &nbsp; 陈俊颖</h2>
+    <div class="wrap">
 
-        <!-- Add image and text side by side -->
-        <div>
-            <div style="width: 22%; float: right!important; margin-left: 3rem;">
-                <img src="static/30071698590983_.pic.jpg" style="border-radius: 50%; width: 100%; ">
-            </div>
-            <div>
-                <h3 style="margin-bottom: 0px; ">Hello!</h3>
-                <p style="margin-top: 3px; ">
-                    I am a Ph.D. candidate in Computer Science at The Chinese University of Hong Kong, Shenzhen, advised by <a
-                        href="https://sds.cuhk.edu.cn/teacher/571">Prof. Benyou Wang</a>. Prior to CUHKSZ, I earned my
-                    master's from Harbin Institute of Technology (Shenzhen), supervised by <a
-                        href="http://faculty.hitsz.edu.cn/chenqingcai1">Prof. Qingcai Chen</a>, and my bachelor's from
-                    Jinan University.
-                </p>
-
+        <!-- ===== Header ===== -->
+        <section class="header">
+            <div class="about">
+                <h1 class="name">Junying Chen<span class="cn">陈俊颖</span></h1>
+                <h3 class="hello">Hello! 👋</h3>
                 <p>
-                    Find me on <a href="https://scholar.google.com.hk/citations?user=I0raPTYAAAAJ&amp;hl=zh-CN&amp;authuser=1" style="color: blue; ">Google
-                        Scholar</a> (2.5k+ citations), and <a href="https://github.com/jymChen" style="color: blue; ">GitHub</a> (6K stars)!
+                    I am a Ph.D. candidate in Computer Science at The Chinese University of Hong Kong, Shenzhen, advised by
+                    <a href="https://sds.cuhk.edu.cn/teacher/571">Prof. Benyou Wang</a>. Prior to CUHKSZ, I earned my master's
+                    from Harbin Institute of Technology (Shenzhen), supervised by
+                    <a href="http://faculty.hitsz.edu.cn/chenqingcai1">Prof. Qingcai Chen</a>, and my bachelor's from Jinan University.
                 </p>
+                <p>
+                    My research interests include <strong class="nw">Medical LLMs</strong>, <strong class="nw">Multimodal LLMs</strong>, and <strong class="nw">LLM Agents</strong>.
+                </p>
+                <p>
+                    Find me on <a href="https://scholar.google.com.hk/citations?user=I0raPTYAAAAJ&amp;hl=zh-CN&amp;authuser=1">Google Scholar</a> (2.5K+ citations),
+                    and <a href="https://github.com/jymChen">GitHub</a> (6K stars)!
+                </p>
+                <p>
+                    Email: <a class="mono" href="mailto:junying.chen.cs@gmail.com">junying.chen.cs@gmail.com</a>
+                </p>
+            </div>
+            <img src="static/30071698590983_.pic.jpg" alt="Junying Chen">
+        </section>
+        <div class="notice">
+            I'm exploring opportunities for 2027, when I expect to graduate, in both industry and academia.
+        </div>
 
-                <p>Email: <a style="font-family: courier;">junying.chen.cs@gmail.com</a>
-                </p>
-                <p style="margin-top: 3px; font-style: italic;"><span style="font-size: 1.25em;">✦</span> I expect to graduate in 2027 and am exploring opportunities in both industry and academia.</p>
+        <!-- ===== Education ===== -->
+        <h2>Education</h2>
+        <div class="entry edu">
+            <div class="entry-head">
+                <span><strong>The Chinese University of Hong Kong, Shenzhen</strong>, Ph.D.</span>
+                <span class="date">2023 – Present</span>
+            </div>
+            <div class="sub upright">GPA Rank: <span class="hl">1st</span> / 24</div>
+        </div>
+        <div class="entry edu">
+            <div class="entry-head">
+                <span><strong>Harbin Institute of Technology, Shenzhen</strong>, M.S.</span>
+                <span class="date">2020 – 2023</span>
+            </div>
+            <div class="sub upright">GPA Rank: <span class="hl">1st</span> / 111</div>
+        </div>
+        <div class="entry edu">
+            <div class="entry-head">
+                <span><strong>Jinan University</strong>, B.S.</span>
+                <span class="date">2016 – 2020</span>
+            </div>
+            <div class="sub upright">GPA Rank: <span class="hl">1st</span> / 51</div>
+        </div>
+
+        <!-- ===== Research Impact ===== -->
+        <h2>Research Impact</h2>
+        <div class="entry impact">
+            <div><span class="num"><a href="https://scholar.google.com.hk/citations?user=I0raPTYAAAAJ">2.5K</a></span>Citations (<span class="hl">1.5K</span> as first author)</div>
+            <div><span class="num"><a href="https://github.com/jymChen">6K</a></span>GitHub stars</div>
+            <div><span class="num">487K</span>Open-source model downloads</div>
+            <div><span class="num">274K</span>Open-source dataset downloads</div>
+        </div>
+
+        <!-- ===== Publications ===== -->
+        <h2>Publications</h2>
+        <p class="note">
+            <strong class="note-hl">Selected (co-)first-author papers.</strong>
+            * denotes equal contribution. Full list on <a href="https://scholar.google.com.hk/citations?user=I0raPTYAAAAJ&amp;hl=zh-CN&amp;authuser=1">Google Scholar</a>.
+        </p>
+
+        <div class="pub-group">Conference Papers</div>
+
+        <div class="pub">
+            <div class="pub-title">OnePO: Direct One-stage Policy Optimization for SFT-free Domain Adaptation</div>
+            <div class="pub-authors"><b>Junying Chen*</b>, Xinyuan Xie*, et al.</div>
+            <div class="pub-meta">
+                <span class="venue">ICML 2026</span> <span class="alias">(HuatuoGPT-3)</span>
+                <span class="pub-links"><a href="https://openreview.net/pdf?id=M8eyUQldfx">[PDF]</a><a href="https://github.com/FreedomIntelligence/HuatuoGPT-3">[Code]</a></span>
             </div>
         </div>
 
-        <h3>Education</h3>
-        <li><em>2023 - Present</em>, Ph.D., The Chinese University of Hong Kong, Shenzhen. <strong>(GPA Rank: 1st / 24)</strong></li>
-        <li><em>2020 - 2023</em>, Master, Harbin Institute of Technology, Shenzhen. <strong>(GPA Rank: 1st / 111)</strong></li>
-        <li><em>2016 - 2020</em>, Bachelor, Jinan University. <strong>(GPA Rank: 1st / 51)</strong></li>
+        <div class="pub">
+            <div class="pub-title">Incentivizing Medical Vision Capabilities from Large-Scale Multimodal Pre-training</div>
+            <div class="pub-authors"><b>Junying Chen</b>, Zhenyang Cai, et al.</div>
+            <div class="pub-meta">
+                <span class="venue">NeurIPS 2026</span> <span class="oral">Oral</span> <span class="alias">(HuatuoGPT-Vision2)</span>
+            </div>
+        </div>
 
-        <h3>Research</h3>
-        <li>Google Scholar Citations: <strong><a href="https://scholar.google.com.hk/citations?user=I0raPTYAAAAJ">2.5K</a></strong> (1.5K first-author citations)</li>
-        <li>GitHub Stars: <strong><a href="https://github.com/jymChen">6K</a></strong></li>
-        <li>Open-Source Model Downloads: <strong>487K</strong></li>
-        <li>Open-Source Dataset Downloads: <strong>274K</strong></li>
-        <li>Research Interests: <strong>Medical LLMs</strong>, <strong>Multimodal LLMs</strong>, and <strong>Medical AI Agents</strong></li>
+        <div class="pub">
+            <div class="pub-title">HuatuoGPT-o1, Towards Medical Complex Reasoning with LLMs</div>
+            <div class="pub-authors"><b>Junying Chen</b>, Zhenyang Cai, et al.</div>
+            <div class="pub-meta">
+                <span class="venue">ACL 2025 Findings</span>
+                <span class="pub-links"><a href="https://arxiv.org/abs/2412.18925">[PDF]</a><a href="https://github.com/FreedomIntelligence/HuatuoGPT-o1">[Code]</a></span>
+            </div>
+        </div>
 
-        <h3>Publications</h3>
+        <div class="pub">
+            <div class="pub-title">HuatuoGPT-Vision, Towards Injecting Medical Visual Knowledge into Multimodal LLMs at Scale</div>
+            <div class="pub-authors"><b>Junying Chen</b>, Chi Gui, et al.</div>
+            <div class="pub-meta">
+                <span class="venue">EMNLP 2024</span>
+                <span class="pub-links"><a href="https://arxiv.org/abs/2406.19280">[PDF]</a><a href="https://github.com/FreedomIntelligence/HuatuoGPT-Vision">[Code]</a></span>
+            </div>
+        </div>
 
-        <em style="color: blue; display: inline-block; margin-bottom: 8px;">Selected (co-)first-author papers are listed. Full list: <a href="https://scholar.google.com.hk/citations?user=I0raPTYAAAAJ&amp;hl=zh-CN&amp;authuser=1" style="color: blue;">Google Scholar</a>.</em>
+        <div class="pub">
+            <div class="pub-title">HuatuoGPT-II, One-stage Training for Medical Adaption of LLMs</div>
+            <div class="pub-authors"><b>Junying Chen</b>, Xidong Wang, et al.</div>
+            <div class="pub-meta">
+                <span class="venue">COLM 2024</span>
+                <span class="pub-links"><a href="https://arxiv.org/abs/2311.09774">[PDF]</a><a href="https://github.com/FreedomIntelligence/HuatuoGPT-II">[Code]</a></span>
+            </div>
+        </div>
 
-        <p style="margin-top: 3px; ">
-            <span class="authors"> <b>Junying Chen*</b>, Xinyuan Xie*, et al.</span><br>
-            <span class="title">OnePO: Direct One-stage Policy Optimization for SFT-free Domain Adaptation</span><br>
-            <span class="venue">ICML 2026</span> (HuatuoGPT-3)
-        </p>
-        <p>
-            <span class="authors"> <b>Junying Chen</b>, Zhenyang Cai, et al.</span><br>
-            <span class="title">Incentivizing Medical Vision Capabilities from Large-Scale Multimodal Pre-training</span><br>
-            <span class="venue">Under Review 2026</span> (HuatuoGPT-Vision2)
-        </p>
-        <p style="margin-top: 3px; ">
-            <span class="authors"> <b>Junying Chen</b>, Zhenyang Cai, et al.</span><br>
-            <span class="title">HuatuoGPT-o1, Towards Medical Complex Reasoning with LLMs</span><br>
-            <span class="venue">ACL Findings 2025</span>
+        <div class="pub">
+            <div class="pub-title">HuatuoGPT, Towards Taming Language Model to Be a Doctor</div>
+            <div class="pub-authors">Hongbo Zhang*, <b>Junying Chen*</b>, Feng Jiang*, et al.</div>
+            <div class="pub-meta">
+                <span class="venue">EMNLP 2023 Findings</span>
+                <span class="pub-links"><a href="https://arxiv.org/abs/2305.15075">[PDF]</a><a href="https://github.com/FreedomIntelligence/HuatuoGPT">[Code]</a></span>
+            </div>
+        </div>
 
-            <a class="label pdf-label" href="https://arxiv.org/abs/2412.18925">[pdf]</a>
-            <a class="label code-label" href="https://github.com/FreedomIntelligence/HuatuoGPT-o1">[code]</a>
-        </p>
-        <p>
-            <span class="authors"> <b>Junying Chen</b>, Chi Gui, et al.</span><br>
-            <span class="title">HuatuoGPT-Vision, Towards Injecting Medical Visual Knowledge into Multimodal LLMs at
-                Scale</span><br>
-            <span class="venue">EMNLP 2024</span>
+        <div class="pub">
+            <div class="pub-title">ShizhenGPT: Towards Multimodal LLMs for Traditional Chinese Medicine</div>
+            <div class="pub-authors"><b>Junying Chen*</b>, Zhenyang Cai*, et al.</div>
+            <div class="pub-meta">
+                <span class="venue">EMNLP 2026 Findings</span>
+                <span class="pub-links"><a href="https://arxiv.org/abs/2508.14706">[PDF]</a><a href="https://github.com/FreedomIntelligence/ShizhenGPT">[Code]</a></span>
+            </div>
+        </div>
 
-            <a class="label pdf-label" href="https://arxiv.org/abs/2406.19280">[pdf]</a>
-            <a class="label code-label" href="https://github.com/FreedomIntelligence/HuatuoGPT-Vision">[code]</a>
-        </p>
-        <p style="margin-top: 3px; ">
-            <span class="authors"> <b>Junying Chen</b>, Xidong Wang, et al.</span><br>
-            <span class="title">HuatuoGPT-II, One-stage Training for Medical Adaption of LLMs</span><br>
-            <span class="venue">COLM 2024</span>
+        <div class="pub">
+            <div class="pub-title">CoD, Towards an Interpretable Medical Agent using Chain of Diagnosis</div>
+            <div class="pub-authors"><b>Junying Chen*</b>, Chi Gui*, et al.</div>
+            <div class="pub-meta">
+                <span class="venue">ACL 2025 Findings</span>
+                <span class="pub-links"><a href="https://arxiv.org/abs/2407.13301">[PDF]</a><a href="https://github.com/FreedomIntelligence/Chain-of-Diagnosis">[Code]</a></span>
+            </div>
+        </div>
 
-            <a class="label pdf-label" href="https://arxiv.org/abs/2311.09774">[pdf]</a>
-            <a class="label code-label" href="https://github.com/FreedomIntelligence/HuatuoGPT-II">[code]</a>
-        </p>
-        <p>
-            <span class="authors"> Hongbo Zhang*, <b>Junying Chen</b>*, Feng Jiang*, et al.</span><br>
-            <span class="title">HuatuoGPT, Towards Taming Language Model to Be a Doctor</span><br>
-            <span class="venue">EMNLP Findings 2023</span>
+        <div class="pub">
+            <div class="pub-title">On the Compositional Generalization of Multimodal LLMs for Medical Imaging</div>
+            <div class="pub-authors">Zhenyang Cai*, <b>Junying Chen*</b>, Rongsheng Wang*, et al.</div>
+            <div class="pub-meta">
+                <span class="venue">ACL 2025</span>
+                <span class="pub-links"><a href="https://arxiv.org/abs/2412.20070">[PDF]</a><a href="https://github.com/FreedomIntelligence/Med-MAT">[Code]</a></span>
+            </div>
+        </div>
 
-            <a class="label pdf-label" href="https://arxiv.org/abs/2305.15075">[pdf]</a>
-            <a class="label code-label" href="https://github.com/FreedomIntelligence/HuatuoGPT">[code]</a>
-        </p>
-        <p>
-            <span class="authors"> <b>Junying Chen*</b>, Chi Gui*, et al.</span><br>
-            <span class="title">CoD, Towards an Interpretable Medical Agent using Chain of Diagnosis</span><br>
-            <span class="venue">ACL Findings 2025</span>
+        <div class="pub">
+            <div class="pub-title">Benchmarking LLMs on Authentic Cases from Medical Journals</div>
+            <div class="pub-authors">Wanlong Liu*, <b>Junying Chen*</b>, Yunjin Yang*, et al.</div>
+            <div class="pub-meta">
+                <span class="venue">ACL 2026 Findings</span>
+                <span class="pub-links"><a href="https://aclanthology.org/2026.findings-acl.767.pdf">[PDF]</a></span>
+            </div>
+        </div>
 
-            <a class="label pdf-label" href="https://arxiv.org/abs/2407.13301">[pdf]</a>
-            <a class="label code-label" href="https://github.com/FreedomIntelligence/Chain-of-Diagnosis">[code]</a>
-        </p>
+        <div class="pub">
+            <div class="pub-title">LLMs Could Autonomously Learn Without External Supervision</div>
+            <div class="pub-authors">Ke Ji*, <b>Junying Chen*</b>, et al.</div>
+            <div class="pub-meta">
+                <span class="venue">ACL 2025 Findings</span>
+                <span class="pub-links"><a href="https://arxiv.org/abs/2406.00606">[PDF]</a><a href="https://github.com/FreedomIntelligence/Autonomous_Learning">[Code]</a></span>
+            </div>
+        </div>
 
-        <p>
-            <span class="authors"> Zhenyang Cai*, <b>Junying Chen*</b>, Rongsheng Wang*, et al.</span><br>
-            <span class="title">On the Compositional Generalization of Multimodal LLMs for Medical Imaging</span><br>
-            <span class="venue">ACL 2025</span>
+        <div class="pub">
+            <div class="pub-title">RAG-Instruct: Boosting LLMs with Diverse Retrieval-Augmented Instructions</div>
+            <div class="pub-authors">Wanlong Liu*, <b>Junying Chen*</b>, et al.</div>
+            <div class="pub-meta">
+                <span class="venue">EMNLP 2025</span>
+                <span class="pub-links"><a href="https://arxiv.org/abs/2501.00353">[PDF]</a><a href="https://github.com/FreedomIntelligence/RAG-Instruct">[Code]</a></span>
+            </div>
+        </div>
 
-            <a class="label pdf-label" href="https://arxiv.org/abs/2412.20070">[pdf]</a>
-            <a class="label code-label" href="https://github.com/FreedomIntelligence/Med-MAT">[code]</a>
-        </p>
+        <div class="pub">
+            <div class="pub-title">Diaformer: Automatic Diagnosis via Symptoms Sequence Generation</div>
+            <div class="pub-authors"><b>Junying Chen*</b>, Dongfang Li*, et al.</div>
+            <div class="pub-meta">
+                <span class="venue">AAAI 2022</span>
+                <span class="pub-links"><a href="https://ojs.aaai.org/index.php/AAAI/article/view/20365/20124">[PDF]</a><a href="https://github.com/jymChen/Diaformer">[Code]</a></span>
+            </div>
+        </div>
 
-        <p>
-            <span class="authors"> Wanlong Liu*, <b>Junying Chen*</b>, Yunjin Yang*, et al.</span><br>
-            <span class="title">Benchmarking LLMs on Authentic Cases from Medical Journals</span><br>
-            <span class="venue">ACL Findings 2026</span>
-        </p>
+        <div class="pub-group">Preprints</div>
 
-        <p>
-            <span class="authors"> Ke Ji*, <b>Junying Chen*</b>, et al.</span><br>
-            <span class="title">LLMs Could Autonomously Learn Without External Supervision</span><br>
-            <span class="venue">ACL Findings 2025</span>
+        <div class="pub">
+            <div class="pub-title">ShareGPT-4o-Image: Aligning Multimodal Models with GPT-4o-Level Image Generation</div>
+            <div class="pub-authors"><b>Junying Chen*</b>, Zhenyang Cai*, Pengcheng Chen*, Shunian Chen*, et al.</div>
+            <div class="pub-meta">
+                <span class="venue">Preprint 2025</span>
+                <span class="pub-links"><a href="https://arxiv.org/abs/2506.18095">[PDF]</a><a href="https://github.com/FreedomIntelligence/ShareGPT-4o-Image">[Code]</a></span>
+            </div>
+        </div>
 
-            <a class="label pdf-label" href="https://arxiv.org/abs/2406.00606">[pdf]</a>
-            <a class="label code-label" href="https://github.com/FreedomIntelligence/Autonomous_Learning">[code]</a>
-        </p>
+        <div class="pub">
+            <div class="pub-title">MedGen: Unlocking Medical Video Generation by Scaling Granularly-annotated Medical Videos</div>
+            <div class="pub-authors">Rongsheng Wang*, <b>Junying Chen*</b>, et al.</div>
+            <div class="pub-meta">
+                <span class="venue">Preprint 2025</span>
+                <span class="pub-links"><a href="https://arxiv.org/abs/2507.05675">[PDF]</a><a href="https://github.com/FreedomIntelligence/MedGen">[Code]</a></span>
+            </div>
+        </div>
 
-        <p>
-            <span class="authors">Wanlong Liu*, <b>Junying Chen*</b>, et al.</span><br>
-            <span class="title">RAG-Instruct: Boosting LLMs with Diverse Retrieval-Augmented Instructions</span><br>
-            <span class="venue">EMNLP 2025</span>
+        <div class="pub">
+            <div class="pub-title">Apollo: A Lightweight Multilingual Medical LLM towards Democratizing Medical AI to 6B People</div>
+            <div class="pub-authors">Xidong Wang*, Nuo Chen*, <b>Junying Chen*</b>, et al.</div>
+            <div class="pub-meta">
+                <span class="venue">Preprint 2024</span>
+                <span class="pub-links"><a href="https://arxiv.org/abs/2403.03640">[PDF]</a><a href="https://github.com/FreedomIntelligence/Apollo">[Code]</a></span>
+            </div>
+        </div>
 
-            <a class="label pdf-label" href="https://arxiv.org/abs/2501.00353">[pdf]</a>
-            <a class="label code-label" href="https://github.com/FreedomIntelligence/RAG-Instruct">[code]</a>
-        </p>
+        <div class="pub">
+            <div class="pub-title">SeDR: Segment Representation Learning for Long Documents Dense Retrieval</div>
+            <div class="pub-authors"><b>Junying Chen</b>, Qingcai Chen, et al.</div>
+            <div class="pub-meta">
+                <span class="venue">Preprint 2022</span>
+                <span class="pub-links"><a href="https://arxiv.org/abs/2211.10841">[PDF]</a><a href="https://github.com/jymChen/SeDR">[Code]</a></span>
+            </div>
+        </div>
 
-        <p>
-            <span class="authors"> <b>Junying Chen</b>*, Dongfang Li*, et al.</span><br>
-            <span class="title">Diaformer: Automatic Diagnosis via Symptoms Sequence Generation</span><br>
-            <span class="venue">AAAI 2022</span>
-            <a class="label pdf-label" href="https://ojs.aaai.org/index.php/AAAI/article/view/20365/20124">[pdf]</a>
-            <a class="label code-label" href="https://github.com/jymChen/Diaformer">[code]</a>
-        </p>
+        <!-- ===== Experience ===== -->
+        <h2>Experience</h2>
+        <div class="entry">
+            <div class="entry-head">
+                <span><strong>Tencent Hunyuan</strong>, Research Intern <span class="tag">Qingyun Program</span></span>
+                <span class="date">Jul 2026 – Sep 2026</span>
+            </div>
+            <div class="sub">Foundation Model Department</div>
+            <ul>
+                <li>Scaled up working spaces (agent environments) for training working agents.</li>
+                <li>Built RL tasks and environments.</li>
+                <li>Contributed to the working-agent capabilities of <strong>Hy4</strong>.</li>
+            </ul>
+        </div>
 
-        <p>
-            <span class="authors"><b>Junying Chen*</b>, Zhenyang Cai*, et al.</span><br>
-            <span class="title">ShizhenGPT: Towards Multimodal LLMs for Traditional Chinese Medicine</span><br>
-            <span class="venue">Preprint 2025</span>
+        <!-- ===== Awards ===== -->
+        <h2>Awards</h2>
+        <div class="entry">
+            <ul class="rows">
+                <li><span>National Scholarship for Graduate (<span class="hl">~Top 1%</span>)</span></li>
+                <li><span>National Scholarship for Undergraduate (<span class="hl">~Top 0.2%</span>)</span></li>
+                <li><span>Merit Fellowship for CUHKSZ Ph.D.</span></li>
+            </ul>
+        </div>
 
-            <a class="label pdf-label" href="https://arxiv.org/abs/2508.14706">[pdf]</a>
-            <a class="label code-label" href="https://github.com/FreedomIntelligence/ShizhenGPT">[code]</a>
-        </p>
-
-        <p>
-            <span class="authors"><b>Junying Chen*</b>, Zhenyang Cai*, Pengcheng Chen*, Shunian Chen*, et al.</span><br>
-            <span class="title">ShareGPT-4o-Image: Aligning Multimodal Models with GPT-4o-Level Image Generation</span><br>
-            <span class="venue">Preprint 2025</span>
-
-            <a class="label pdf-label" href="https://arxiv.org/abs/2506.18095">[pdf]</a>
-            <a class="label code-label" href="https://github.com/FreedomIntelligence/ShareGPT-4o-Image">[code]</a>
-        </p>
-
-        <p>
-            <span class="authors">Rongsheng Wang*, <b>Junying Chen*</b>, et al.</span><br>
-            <span class="title">MedGen: Unlocking Medical Video Generation by Scaling Granularly-annotated Medical Videos</span><br>
-            <span class="venue">Preprint 2025</span>
-
-            <a class="label pdf-label" href="https://arxiv.org/abs/2507.05675">[pdf]</a>
-            <a class="label code-label" href="https://github.com/FreedomIntelligence/MedGen">[code]</a>
-        </p>
-        
-        <p>
-            <span class="authors"> Xidong Wang*, Nuo Chen*, <b>Junying Chen*</b>, et al.</span><br>
-            <span class="title">Apollo: A Lightweight Multilingual Medical LLM towards Democratizing Medical AI to 6B
-                People</span><br>
-            <span class="venue">Preprint 2024</span>
-
-            <a class="label pdf-label" href="https://arxiv.org/abs/2403.03640">[pdf]</a>
-            <a class="label code-label" href="https://github.com/FreedomIntelligence/Apollo">[code]</a>
-        </p>
-
-        <p>
-            <span class="authors"> <b>Junying Chen</b>, Qingcai Chen, et al.</span><br>
-            <span class="title">SeDR: Segment Representation Learning for Long Documents Dense Retrieval</span><br>
-            <span class="venue">Preprint 2022</span>
-
-            <a class="label pdf-label" href="https://arxiv.org/abs/2211.10841">[pdf]</a>
-            <a class="label code-label" href="https://github.com/jymChen/SeDR">[code]</a>
-        </p>
-
-        <h3 style="margin-top: 32px;">Research Philosophy</h3>
-        <p class="philosophy-intro">
-            I am motivated by the potential of LLMs to support broad applications and create real-world value. My research focuses on making LLMs more usable in real-world practice:
-        </p>
-        <li><strong>Domain adaptation:</strong> specializing LLMs for high-stakes domains (e.g., healthcare).<br>
-            <span class="philosophy-links">(<a href="https://arxiv.org/abs/2305.15075">HuatuoGPT</a>, <a href="https://arxiv.org/abs/2311.09774">HuatuoGPT-II</a>, <a href="#">HuatuoGPT-3</a>, <a href="https://arxiv.org/abs/2412.18925">HuatuoGPT-o1</a>, <a href="https://arxiv.org/abs/2406.00606">AL</a>, <a href="https://arxiv.org/abs/2403.03640">Apollo</a>)</span></li>
-        <li><strong>Multimodal adaptation:</strong> enabling LLMs to perceive, reason over, and align with the visual world.<br>
-            <span class="philosophy-links">(<a href="https://arxiv.org/abs/2406.19280">HuatuoGPT-Vision</a>, <a href="#">HuatuoGPT-Vision2</a>, <a href="https://arxiv.org/abs/2508.14706">ShizhenGPT</a>, <a href="https://arxiv.org/abs/2506.18095">ShareGPT-4o-Image</a>, <a href="https://arxiv.org/abs/2507.05675">MedGen</a>, <a href="https://arxiv.org/abs/2412.20070">CG</a>)</span></li>
-        <li><strong>Trustworthy agents:</strong> building interpretable, controllable, and reliable AI systems.<br>
-            <span class="philosophy-links">(<a href="#">HuatuoGPT-R [Coming]</a>, <a href="https://arxiv.org/abs/2407.13301">CoD</a>, <a href="https://arxiv.org/abs/2501.00353">RAG-Instruct</a>, <a href="https://ojs.aaai.org/index.php/AAAI/article/view/20365/20124">Diaformer</a>)</span></li>
-        <p class="philosophy-vision">Toward useful and trustworthy AI on the path to AGI.</p>
-
-        <h3>Awards</h3>
-        <li> National Scholarship for Undergraduate <strong>(Top 0.2%)</strong></li>
-        <li> National Scholarship for Graduate <strong>(Top 0.2%)</strong></li>
-        <li>Merit Fellowship for CUHKSZ PhD</li>
-
-        <br>
-        <p style="font-style: italic;">This website is adapted from <a href="http://gregorygundersen.com/">Gregory
-                Gunderson</a> and <a href="https://gaotianyu.xyz">Tianyu Gao</a>.</p> 
     </div>
-
-
 </body>
 
 </html>
